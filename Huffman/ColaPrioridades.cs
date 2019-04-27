@@ -12,6 +12,7 @@ namespace Huffman
         {
             public char ch;
             public int freq;
+            public string codigo;
         }
 
         public class PriorityQueue
@@ -116,6 +117,7 @@ namespace Huffman
                 heapSize = nodeList.Count;
                 return node;
             }
+
 
             public void insert(ArbolBinario<CharFreq> node)
             {
