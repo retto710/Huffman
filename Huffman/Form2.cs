@@ -74,80 +74,7 @@ namespace Huffman
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string s = textBox1.Text;
-            int n = s.Length;
-            List<CharFreq> list = new List<CharFreq>();
-
-            textBox2.Text = string.Empty;
-
-            for (int i = 0; i < n; i++)
-            {
-                bool found = false;
-                char c = s[i];
-                CharFreq cf = new CharFreq();
-
-                for (int j = 0; !found && j < list.Count; j++)
-                {
-                    if (c == list[j].ch)
-                    {
-                        found = true;
-                        cf.ch = c;
-                        cf.freq = 1 + list[j].freq;
-                        list.RemoveAt(j);
-                        list.Add(cf);
-                    }
-                }
-
-                if (!found)
-                {
-                    cf.ch = c;
-                    cf.freq = 1;
-                    list.Add(cf);
-                }
-            }
             
-
-            ArbolHuffman ht = new ArbolHuffman();
-            ArbolBinario<CharFreq> root = ht.Build(list, list.Count);
-            //Agregar codigo a Nodos
-
-            InorderTraversal(root);
-            for (int i = 0; i < list.Count; i++)
-            {
-                actual = "";
-                pesoNodo = "";
-                CharFreq cf = new CharFreq();
-                cf.ch = list[0].ch;
-                cf.freq = list[0].freq;
-                inorderPrintTree(root, list[0].ch);
-                cf.codigo = actual;
-                list.RemoveAt(0);
-                list.Add(cf);
-                textBox3.Text += "'" + new string(cf.ch, 1) + "' ";
-                textBox3.Text += "'" + cf.codigo + "' ";
-                textBox3.Text += cf.freq.ToString() + "\r\n";
-            }
-           
-           
-            textBox2.Text += "\r\n# caracteres = " + n.ToString() + "\r\n";
-            textBox2.Text += "# nodos = " + leafNodes.ToString() + "\r\n";
-            textBox2.Text += "% comprimido = " +
-                (100.0 - 100.0 * ((double)leafNodes) / n).ToString("F2") + "\r\n";
-            //Texto comprimido
-            string texto="" ;
-            for (int j = 0; j < s.Length; j++)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (s[j]==list[i].ch)
-                    {
-                        texto += list[i].codigo;
-                    }
-                   
-                }
-            }
-      
-            textBox4.Text = texto;
     }
 
         private void button2_Click(object sender, EventArgs e)
@@ -177,7 +104,15 @@ namespace Huffman
             SaveFileDialog saver = new SaveFileDialog();
             DialogResult LocRes = saver.ShowDialog();
             if (LocRes == DialogResult.OK)
-                System.IO.File.WriteAllText(saver.FileName + ".tfo", textBox4.Text);
+                System.IO.File.WriteAllText(saver.FileName + ".txt", textBox4.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Menu myForm = new Menu();
+            this.Hide();
+            myForm.ShowDialog();
+            this.Close();
         }
     }
 }
