@@ -1,6 +1,6 @@
 ﻿namespace Huffman
 {
-    partial class Form1
+    partial class Form2
     {
         /// <summary>
         /// Required designer variable.
@@ -39,16 +39,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 43);
+            this.textBox1.Location = new System.Drawing.Point(13, 13);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(573, 67);
+            this.textBox1.Size = new System.Drawing.Size(555, 97);
             this.textBox1.TabIndex = 0;
             // 
             // button1
@@ -126,9 +125,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(15, 114);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 17);
+            this.label3.Size = new System.Drawing.Size(82, 17);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Arbol ordernado ";
+            this.label3.Text = "Diccionario ";
             // 
             // btnSave
             // 
@@ -140,22 +139,11 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(18, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "ATRAS";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // Form1
+            // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 691);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -166,7 +154,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
-            this.Name = "Form1";
+            this.Name = "Form2";
             this.Text = "Huffman";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -187,7 +175,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button button3;
     }
 }
 

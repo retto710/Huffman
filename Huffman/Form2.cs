@@ -11,12 +11,12 @@ using static Huffman.ColaPrioridades;
 
 namespace Huffman
 {
-    public partial class Form1 : Form
+    public partial class Form2 : Form
     {
         private int leafNodes;
         private string pesoNodo;
         private string actual;
-        public Form1()
+        public Form2()
         {
             InitializeComponent();
         }
@@ -152,14 +152,18 @@ namespace Huffman
 
         private void button2_Click(object sender, EventArgs e)
         {
-            openFileDialog1.DefaultExt = "txt";
-            openFileDialog1.Filter = "txt files (*.txt)|*.txt";
+            openFileDialog1.DefaultExt = "tfo";
+            openFileDialog1.Filter = "tfo files (*.tfo)|*.tfo";
             //openFileDialog1.ShowDialog();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 //Limpiar textbox
                 textBox1.Text = "";
                 textBox1.Text = System.IO.File.ReadAllText(openFileDialog1.FileName);
+                textBox2.Text = "";
+                string diccionario = openFileDialog1.FileName.Substring(0, openFileDialog1.FileName.Length-4);
+                diccionario = diccionario + "diccionario.tfo";
+                textBox2.Text = System.IO.File.ReadAllText(diccionario);
             }
         }
 
@@ -173,16 +177,7 @@ namespace Huffman
             SaveFileDialog saver = new SaveFileDialog();
             DialogResult LocRes = saver.ShowDialog();
             if (LocRes == DialogResult.OK)
-            {  System.IO.File.WriteAllText(saver.FileName + ".tfo", textBox4.Text);
-             System.IO.File.WriteAllText(saver.FileName+"diccionario" + ".tfo", textBox3.Text); }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Menu myForm = new Menu();
-            this.Hide();
-            myForm.ShowDialog();
-            this.Close();
+                System.IO.File.WriteAllText(saver.FileName + ".tfo", textBox4.Text);
         }
     }
 }
