@@ -74,8 +74,8 @@ namespace Huffman
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-    }
+            textBox3.Text = BinToDec(textBox1.Text);
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -113,6 +113,34 @@ namespace Huffman
             this.Hide();
             myForm.ShowDialog();
             this.Close();
+        }
+        public String BinToDec(String text)
+        {
+            String binario = "";
+            int numItems = text.Length;
+            int cont = 0;
+            System.Console.WriteLine(numItems);
+            //Pasar a binario de nuevo
+            foreach (char word in text)
+            {
+                cont++;
+                int sword = (int)word;
+                if (cont != numItems)
+                {
+                    String bin = Convert.ToString(sword, 2);
+                    int faltaceros = 8 - bin.Length;
+                    for (int i = 0; i < faltaceros; i++)
+                    {
+                        bin = "0" + bin;
+                    }
+                    binario += bin;
+                }
+                else
+                {
+                    binario += Convert.ToString(sword, 2);
+                }
+            }
+            return binario;
         }
     }
 }

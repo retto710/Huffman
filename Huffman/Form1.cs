@@ -173,7 +173,9 @@ namespace Huffman
             SaveFileDialog saver = new SaveFileDialog();
             DialogResult LocRes = saver.ShowDialog();
             if (LocRes == DialogResult.OK)
-            {  System.IO.File.WriteAllText(saver.FileName + ".tfo", textBox4.Text);
+            {
+                String final = DecToBin(textBox4.Text);
+                System.IO.File.WriteAllText(saver.FileName + ".tfo", final);  
              System.IO.File.WriteAllText(saver.FileName+"diccionario" + ".tfo", textBox3.Text); }
         }
 
@@ -184,5 +186,20 @@ namespace Huffman
             myForm.ShowDialog();
             this.Close();
         }
+        public String DecToBin(String binario)
+        {
+            String nuevo = "";
+            String aux = binario;
+            int tamano;
+            while (aux.Length > 8)
+            {
+                nuevo += Convert.ToChar(Convert.ToInt32(aux.Substring(0, 8), 2));
+                tamano = aux.Length - 8;          
+                aux = aux.Substring(8, tamano);
+            }
+            nuevo += Convert.ToInt32(aux, 2);
+            return nuevo;
+        }
+       
     }
 }
