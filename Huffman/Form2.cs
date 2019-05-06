@@ -20,6 +20,8 @@ namespace Huffman
         private string textoCompleto;
         private string textoBinario;
         private int contador=0;
+        private CharFreq cf;
+        private int ord;
         public Form2()
         {
             InitializeComponent();
@@ -27,8 +29,10 @@ namespace Huffman
         }
         private void Buscar(ArbolBinario<CharFreq> node, string letra)
         {
-            if (node != null)
+            if (node != null&&letra.Length>0)
             {
+                cf = node.Value;
+                ord = (int)cf.ch;
                 if (letra[0]=='0'&&node.Left!=null)
                 {
                     Buscar(node.Left,letra.Substring(1,letra.Length-1));
@@ -40,15 +44,19 @@ namespace Huffman
                     contador++;
                 }
 
-                CharFreq cf = node.Value;
-                int ord = (int)cf.ch;
+                
 
                 if (node.Left == null && node.Right == null)
                 {
 
                     textoCompleto +=  new string(cf.ch, 1) ;
 
-                }            }
+                }
+            }
+            if (letra.Length==0)
+            {
+                textoCompleto += new string(node.Value.ch, 1);
+            }
         }
         private void InorderTraversal(ArbolBinario<CharFreq> node)
         {
@@ -176,12 +184,7 @@ namespace Huffman
                 }
                 else
                 {
-                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                    DialogResult result;
-                    string message = "You did not enter a server name. Cancel this operation?";
-                    string caption = "Error Detected in Input";
-                    // Displays the MessageBox.
-                    result = MessageBox.Show(binario, caption, buttons);
+               
                     binario += Convert.ToString(sword, 2);
                 }
             }
@@ -264,17 +267,20 @@ namespace Huffman
             //}
 
             string aux = textoBinario;
-           
-        
-            for (int i = 0; i <= aux.Length; i++)
+
+
+            while (aux.Length > 0 && aux != "") 
             {
                 Buscar(root, aux);
                 int end = aux.Length - contador;
-                int end2 = aux.Length ;
-                aux = aux.Substring(contador, end);
+                
+              
+                    aux = aux.Substring(contador, end);
+                
+               
                 contador = 0;
 
-            }
+            } 
             textBox4.Text = textoCompleto;
         }
     }

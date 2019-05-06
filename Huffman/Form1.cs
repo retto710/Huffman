@@ -197,7 +197,7 @@ namespace Huffman
                 tamano = aux.Length - 8;          
                 aux = aux.Substring(8, tamano);
             }
-            nuevo += Convert.ToInt32(aux, 2);
+            nuevo += Convert.ToChar( Convert.ToInt32(aux, 2));
             return nuevo;
         }
        
