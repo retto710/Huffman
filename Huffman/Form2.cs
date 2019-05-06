@@ -94,7 +94,7 @@ namespace Huffman
                 diccionario = openFileDialog1.FileName.Substring(0, openFileDialog1.FileName.Length-4);
                 diccionario = diccionario + "diccionario.tfo";
                 textBox2.Text = System.IO.File.ReadAllText(diccionario);
-                textBox4.Text = textBox2.Lines.Length.ToString();
+                
                 leerDiccionario();
             }
             valueDic = textBox2.Text;
@@ -162,7 +162,7 @@ namespace Huffman
                 String letra;
                 String cantidad;
                 int numeroveces;
-                int n = s.Length;
+               
                 int start = s.IndexOf("(") + 1;
                 int end = s.IndexOf(")", start);
                 letra = s.Substring(start, end - start);
@@ -176,8 +176,56 @@ namespace Huffman
                 }
             }
 
-            textBox4.Text = result;
-           
+            //textBox4.Text = result;
+            int n = result.Length;
+            List<CharFreq> list = new List<CharFreq>();
+
+            //textBox2.Text = string.Empty;
+
+            for (int i = 0; i < n; i++)
+            {
+                bool found = false;
+                char c = result[i];
+                CharFreq cf = new CharFreq();
+
+                for (int j = 0; !found && j < list.Count; j++)
+                {
+                    if (c == list[j].ch)
+                    {
+                        found = true;
+                        cf.ch = c;
+                        cf.freq = 1 + list[j].freq;
+                        list.RemoveAt(j);
+                        list.Add(cf);
+                    }
+                }
+
+                if (!found)
+                {
+                    cf.ch = c;
+                    cf.freq = 1;
+                    list.Add(cf);
+                }
+            }
+
+
+            ArbolHuffman ht = new ArbolHuffman();
+            ArbolBinario<CharFreq> root = ht.Build(list, list.Count);
+            for (int i = 0; i < list.Count; i++)
+            {
+                actual = "";
+                pesoNodo = "";
+                CharFreq cf = new CharFreq();
+                cf.ch = list[0].ch;
+                cf.freq = list[0].freq;
+                inorderPrintTree(root, list[0].ch);
+                cf.codigo = actual;
+                list.RemoveAt(0);
+                list.Add(cf);
+                textBox4.Text += "(" + new string(cf.ch, 1) + ") ";
+                textBox4.Text += "" + cf.codigo + " ";
+                textBox4.Text += "'" + cf.freq.ToString() + "' " + "\r\n";
+            }
         }
     }
 }
