@@ -260,7 +260,7 @@ namespace Huffman
             string aux = textoBinario;
            
         
-            for (int i = 1; i <= aux.Length; i++)
+            for (int i = 0; i <= aux.Length; i++)
             {
                 Buscar(root, aux);
                 int end = aux.Length - 6;
