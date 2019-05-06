@@ -176,6 +176,12 @@ namespace Huffman
                 }
                 else
                 {
+                    MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+                    DialogResult result;
+                    string message = "You did not enter a server name. Cancel this operation?";
+                    string caption = "Error Detected in Input";
+                    // Displays the MessageBox.
+                    result = MessageBox.Show(binario, caption, buttons);
                     binario += Convert.ToString(sword, 2);
                 }
             }
@@ -263,7 +269,8 @@ namespace Huffman
             for (int i = 0; i <= aux.Length; i++)
             {
                 Buscar(root, aux);
-                int end = aux.Length - 6;
+                int end = aux.Length - contador;
+                int end2 = aux.Length ;
                 aux = aux.Substring(contador, end);
                 contador = 0;
 
