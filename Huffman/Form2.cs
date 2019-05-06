@@ -17,9 +17,38 @@ namespace Huffman
         private int leafNodes;
         private string pesoNodo;
         private string actual;
+        private string textoCompleto;
+        private string textoBinario;
+        private int contador=0;
         public Form2()
         {
             InitializeComponent();
+            textoCompleto = "";
+        }
+        private void Buscar(ArbolBinario<CharFreq> node, string letra)
+        {
+            if (node != null)
+            {
+                if (letra[0]=='0'&&node.Left!=null)
+                {
+                    Buscar(node.Left,letra.Substring(1,letra.Length-1));
+                    contador++;
+                }
+                else if (letra[0] == '1' && node.Right != null)
+                {
+                    Buscar(node.Right, letra.Substring(1, letra.Length - 1));
+                    contador++;
+                }
+
+                CharFreq cf = node.Value;
+                int ord = (int)cf.ch;
+
+                if (node.Left == null && node.Right == null)
+                {
+
+                    textoCompleto +=  new string(cf.ch, 1) ;
+
+                }            }
         }
         private void InorderTraversal(ArbolBinario<CharFreq> node)
         {
@@ -94,11 +123,12 @@ namespace Huffman
                 diccionario = openFileDialog1.FileName.Substring(0, openFileDialog1.FileName.Length-4);
                 diccionario = diccionario + "diccionario.tfo";
                 textBox2.Text = System.IO.File.ReadAllText(diccionario);
-                
+                textoBinario = BinToDec(textBox1.Text.ToString());
+                textBox3.Text = textoBinario;
                 leerDiccionario();
             }
             valueDic = textBox2.Text;
-
+           
           
 
         }
@@ -211,21 +241,34 @@ namespace Huffman
 
             ArbolHuffman ht = new ArbolHuffman();
             ArbolBinario<CharFreq> root = ht.Build(list, list.Count);
-            for (int i = 0; i < list.Count; i++)
+            //for (int i = 0; i < list.Count; i++)
+            //{
+            //    actual = "";
+            //    pesoNodo = "";
+            //    CharFreq cf = new CharFreq();
+            //    cf.ch = list[0].ch;
+            //    cf.freq = list[0].freq;
+            //    inorderPrintTree(root, list[0].ch);
+            //    cf.codigo = actual;
+            //    list.RemoveAt(0);
+            //    list.Add(cf);
+            //    textBox4.Text += "(" + new string(cf.ch, 1) + ") ";
+            //    textBox4.Text += "" + cf.codigo + " ";
+            //    textBox4.Text += "'" + cf.freq.ToString() + "' " + "\r\n";
+            //}
+
+            string aux = textoBinario;
+           
+        
+            for (int i = 1; i <= aux.Length; i++)
             {
-                actual = "";
-                pesoNodo = "";
-                CharFreq cf = new CharFreq();
-                cf.ch = list[0].ch;
-                cf.freq = list[0].freq;
-                inorderPrintTree(root, list[0].ch);
-                cf.codigo = actual;
-                list.RemoveAt(0);
-                list.Add(cf);
-                textBox4.Text += "(" + new string(cf.ch, 1) + ") ";
-                textBox4.Text += "" + cf.codigo + " ";
-                textBox4.Text += "'" + cf.freq.ToString() + "' " + "\r\n";
+                Buscar(root, aux);
+                int end = aux.Length - 6;
+                aux = aux.Substring(contador, end);
+                contador = 0;
+
             }
+            textBox4.Text = textoCompleto;
         }
     }
 }
