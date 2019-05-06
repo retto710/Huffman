@@ -123,9 +123,9 @@ namespace Huffman
                 cf.codigo = actual;
                 list.RemoveAt(0);
                 list.Add(cf);
-                textBox3.Text += "'" + new string(cf.ch, 1) + "' ";
-                textBox3.Text += "'" + cf.codigo + "' ";
-                textBox3.Text += cf.freq.ToString() + "\r\n";
+                textBox3.Text += "(" + new string(cf.ch, 1) + ") ";
+                textBox3.Text += "" + cf.codigo + " ";
+                textBox3.Text += "'"+ cf.freq.ToString() + "' " + "\r\n";
             }
            
            

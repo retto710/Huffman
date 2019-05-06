@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +33,8 @@ namespace Huffman
                 if (node.Left == null && node.Right == null)
                 {
                     leafNodes++;
-                    textBox2.Text += "'" + new string(cf.ch, 1) + "' ";
-                    textBox2.Text += "'" + cf.codigo + "' ";
+                    textBox2.Text += "(" + new string(cf.ch, 1) + ") ";
+                    textBox2.Text += "" + cf.codigo + " ";
                     textBox2.Text += "'" + cf.codigo + "' ";
                     textBox2.Text += node.Value.freq.ToString() + "\r\n";
                     
@@ -80,7 +81,9 @@ namespace Huffman
         private void button2_Click(object sender, EventArgs e)
         {
             openFileDialog1.DefaultExt = "tfo";
-            openFileDialog1.Filter = "tfo files (*.tfo)|*.tfo";
+            openFileDialog1.Filter = "tfo files (*.tfo)|*.tfo"; ;
+            string diccionario;
+            string valueDic="";
             //openFileDialog1.ShowDialog();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -88,10 +91,16 @@ namespace Huffman
                 textBox1.Text = "";
                 textBox1.Text = System.IO.File.ReadAllText(openFileDialog1.FileName);
                 textBox2.Text = "";
-                string diccionario = openFileDialog1.FileName.Substring(0, openFileDialog1.FileName.Length-4);
+                diccionario = openFileDialog1.FileName.Substring(0, openFileDialog1.FileName.Length-4);
                 diccionario = diccionario + "diccionario.tfo";
                 textBox2.Text = System.IO.File.ReadAllText(diccionario);
+                textBox4.Text = textBox2.Lines.Length.ToString();
+                leerDiccionario();
             }
+            valueDic = textBox2.Text;
+
+          
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -141,6 +150,34 @@ namespace Huffman
                 }
             }
             return binario;
+        }
+
+        public void leerDiccionario()
+        {
+            int nLineas = textBox2.Lines.Length-1;
+            string result = "";
+            for (int i = 0; i < nLineas; i++)
+            {
+                String s = textBox2.Lines[i].ToString();
+                String letra;
+                String cantidad;
+                int numeroveces;
+                int n = s.Length;
+                int start = s.IndexOf("(") + 1;
+                int end = s.IndexOf(")", start);
+                letra = s.Substring(start, end - start);
+                int start2 = s.IndexOf("'") + 1;
+                int end2 = s.IndexOf("'", start2);
+                cantidad = s.Substring(start2, end2 - start2);
+                numeroveces= Int32.Parse(cantidad);
+                for (int j = 0; j < numeroveces; j++)
+                {
+                    result += letra;
+                }
+            }
+
+            textBox4.Text = result;
+           
         }
     }
 }
