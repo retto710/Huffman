@@ -14,6 +14,7 @@ namespace Huffman
 {
     public partial class Form2 : Form
     {
+        private string textoOriginal;
         private int leafNodes;
         private string pesoNodo;
         private string actual;
@@ -22,6 +23,7 @@ namespace Huffman
         private int contador=0;
         private CharFreq cf;
         private int ord;
+        private int cant_ult_dig;
         public Form2()
         {
             InitializeComponent();
@@ -126,7 +128,10 @@ namespace Huffman
             {
                 //Limpiar textbox
                 textBox1.Text = "";
-                textBox1.Text = System.IO.File.ReadAllText(openFileDialog1.FileName);
+                textoOriginal = System.IO.File.ReadAllText(openFileDialog1.FileName);
+                cant_ult_dig = Int32.Parse(textoOriginal.Substring(textoOriginal.Length - 1));
+                textoOriginal = textoOriginal.Substring(0, textoOriginal.Length - 1);
+                textBox1.Text = textoOriginal;
                 textBox2.Text = "";
                 diccionario = openFileDialog1.FileName.Substring(0, openFileDialog1.FileName.Length-4);
                 diccionario = diccionario + "diccionario.tfo";
@@ -181,11 +186,18 @@ namespace Huffman
                         bin = "0" + bin;
                     }
                     binario += bin;
+                    
                 }
                 else
                 {
-               
-                    binario += Convert.ToString(sword, 2);
+                    string aux;
+                    aux= Convert.ToString(sword, 2);
+                    int faltaceros = cant_ult_dig - aux.Length;
+                    for (int i = 0; i < faltaceros; i++)
+                    {
+                        aux = "0" + aux;
+                    }
+                    binario += aux;
                 }
             }
             return binario;
